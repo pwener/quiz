@@ -100,15 +100,15 @@ export function MovieSearchCombobox({
             aria-expanded={open}
             aria-autocomplete="list"
             role="combobox"
-            className="pr-9"
+            className="border-pastel-teal-light bg-input pr-9 focus-visible:border-pastel-teal focus-visible:ring-pastel-teal/30"
           />
           {isLoading && (
-            <Loader2Icon className="absolute top-1/2 right-2.5 size-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+            <Loader2Icon className="absolute top-1/2 right-2.5 size-4 -translate-y-1/2 animate-spin text-pastel-teal" />
           )}
         </div>
       </PopoverAnchor>
       <PopoverContent
-        className="w-[var(--radix-popover-trigger-width)] p-0"
+        className="w-[var(--radix-popover-trigger-width)] border-pastel-lavender/60 p-0 shadow-md"
         align="start"
         onOpenAutoFocus={(event) => event.preventDefault()}
       >
@@ -151,14 +151,14 @@ function MovieSuggestionRow({ movie }: { movie: MovieSuggestion }) {
           className="size-10 shrink-0 rounded object-cover"
         />
       ) : (
-        <div className="flex size-10 shrink-0 items-center justify-center rounded bg-muted text-xs text-muted-foreground">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded bg-pastel-lavender-light text-xs text-pastel-slate-muted">
           N/A
         </div>
       )}
       <div className="min-w-0 flex-1">
         <div className="truncate font-medium">{movie.title}</div>
         {movie.year && (
-          <div className="text-xs text-muted-foreground">{movie.year}</div>
+          <div className="text-xs text-pastel-slate-muted">{movie.year}</div>
         )}
       </div>
     </>

@@ -10,38 +10,48 @@
 @source "../**/*.{ts,tsx}";
 
 :root {
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    /* Pastel palette */
+    --pastel-teal: oklch(0.62 0.07 195);
+    --pastel-teal-light: oklch(0.88 0.04 195);
+    --pastel-lavender: oklch(0.82 0.05 290);
+    --pastel-lavender-light: oklch(0.94 0.025 290);
+    --pastel-gold: oklch(0.84 0.07 90);
+    --pastel-gold-light: oklch(0.93 0.04 90);
+    --pastel-slate: oklch(0.42 0.025 260);
+    --pastel-slate-muted: oklch(0.58 0.02 260);
+
+    --background: oklch(0.95 0.018 285);
+    --foreground: var(--pastel-slate);
+    --card: oklch(0.98 0.012 290);
+    --card-foreground: var(--pastel-slate);
+    --popover: oklch(0.99 0.01 290);
+    --popover-foreground: var(--pastel-slate);
+    --primary: var(--pastel-teal);
+    --primary-foreground: oklch(0.98 0.01 195);
+    --secondary: var(--pastel-lavender-light);
+    --secondary-foreground: oklch(0.38 0.04 290);
+    --muted: oklch(0.91 0.015 270);
+    --muted-foreground: var(--pastel-slate-muted);
+    --accent: var(--pastel-gold-light);
+    --accent-foreground: oklch(0.38 0.05 75);
+    --destructive: oklch(0.62 0.14 25);
+    --border: oklch(0.87 0.03 285);
+    --input: oklch(0.97 0.015 290);
+    --ring: var(--pastel-teal);
+    --chart-1: var(--pastel-teal);
+    --chart-2: var(--pastel-lavender);
+    --chart-3: var(--pastel-gold);
+    --chart-4: var(--pastel-slate-muted);
+    --chart-5: oklch(0.72 0.05 195);
+    --radius: 0.75rem;
+    --sidebar: var(--pastel-lavender-light);
+    --sidebar-foreground: var(--pastel-slate);
+    --sidebar-primary: var(--pastel-teal);
+    --sidebar-primary-foreground: oklch(0.98 0.01 195);
+    --sidebar-accent: var(--pastel-gold-light);
+    --sidebar-accent-foreground: oklch(0.38 0.05 75);
+    --sidebar-border: oklch(0.87 0.03 285);
+    --sidebar-ring: var(--pastel-teal);
 }
 
 .dark {
@@ -102,6 +112,14 @@
     --color-chart-3: var(--chart-3);
     --color-chart-4: var(--chart-4);
     --color-chart-5: var(--chart-5);
+    --color-pastel-teal: var(--pastel-teal);
+    --color-pastel-teal-light: var(--pastel-teal-light);
+    --color-pastel-lavender: var(--pastel-lavender);
+    --color-pastel-lavender-light: var(--pastel-lavender-light);
+    --color-pastel-gold: var(--pastel-gold);
+    --color-pastel-gold-light: var(--pastel-gold-light);
+    --color-pastel-slate: var(--pastel-slate);
+    --color-pastel-slate-muted: var(--pastel-slate-muted);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
