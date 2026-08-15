@@ -9,15 +9,15 @@ export default function MovieArchetypeResult() {
         />
 
         <header className="flex flex-col gap-2">
-          <h1 className="text-2xl leading-tight font-semibold text-pastel-slate">
+          <h1 className="text-2xl leading-tight font-semibold text-pastel-teal">
             The Romantiker / Hopeless Romantic
           </h1>
-          <p className="text-sm font-medium text-pastel-teal">
+          <p className="text-xl font-medium text-pastel-teal">
             The Cerebral Puzzle-Solver / Reality Bender
           </p>
         </header>
 
-        <p className="max-w-md text-sm leading-relaxed text-pastel-slate-muted">
+        <p className="max-w-md text-base text-justify leading-relaxed text-pastel-slate-muted">
           This persona possesses a captivating dual nature: they are driven by
           deep emotional vulnerability and passionate romance, but they insist
           that it be paired with high-stakes dramatic intrigue, nostalgic
