@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { Link } from "react-router"
 
 import { MovieSearchCombobox } from "../components/movie-search-combobox"
+import { Button } from "@workspace/ui/components/button"
 import {
   MAX_MOVIES,
   SelectedMoviesList,
@@ -57,6 +59,10 @@ export default function Home() {
         </section>
 
         <SelectedMoviesList movies={selectedMovies} onRemove={handleRemove} />
+
+        <Button asChild size="lg" className="w-full">
+          <Link to="/movie/archetype-result">Discover</Link>
+        </Button>
       </div>
     </div>
   )

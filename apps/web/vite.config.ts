@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "vite"
 
 export default defineConfig({
+  publicDir: "../../public",
   resolve: { tsconfigPaths: true },
   plugins: [tailwindcss(), reactRouter()],
 })
