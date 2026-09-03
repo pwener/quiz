@@ -1,6 +1,6 @@
 export default function MovieArchetypeResult() {
   return (
-    <div className="flex min-h-svh items-center justify-center px-4 py-16">
+    <div className="bg-pastel-mesh flex min-h-svh items-center justify-center px-4 py-16">
       <article className="flex w-full max-w-3xl flex-col items-center gap-6 text-center">
         <header>
           <h1 className="text-3xl leading-tight font-semibold text-pastel-slate">

@@ -139,6 +139,31 @@
     --font-heading: var(--font-sans);
 }
 
+@utility bg-pastel-mesh {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      ellipse 90% 70% at 8% 12%,
+      color-mix(in oklch, var(--pastel-teal-light) 85%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 70% 55% at 94% 10%,
+      color-mix(in oklch, var(--pastel-gold-light) 80%, transparent),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 85% 65% at 88% 92%,
+      color-mix(in oklch, var(--pastel-lavender) 40%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 10% 88%,
+      color-mix(in oklch, var(--pastel-lavender-light) 90%, transparent),
+      transparent 50%
+    );
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
