@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { Link } from "react-router"
-import { XIcon } from "lucide-react"
+import { Maximize2Icon, XIcon } from "lucide-react"
 
 import { Button } from "@workspace/ui/components/button"
 import {
@@ -55,13 +55,16 @@ export default function MovieArchetypeResult() {
             This is your{" "}
             <span className="text-pastel-teal">Movie-Watcher</span> Archetype
           </h1>
+          <p className="mt-2 text-sm text-pastel-slate-muted">
+            Tap a figure to learn more
+          </p>
         </header>
 
         <div className="flex flex-col gap-6">
           <div className="relative pb-4">
             <button
               type="button"
-              className="relative w-full cursor-pointer rounded-2xl bg-card p-2 text-left shadow-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="group relative w-full cursor-pointer rounded-2xl bg-card p-2 text-left shadow-md outline-none transition-shadow hover:shadow-lg focus-visible:ring-3 focus-visible:ring-ring/50"
               onClick={() => setHighlighted("primary")}
               aria-label={`View ${ARCHETYPES.primary.title}`}
             >
@@ -70,13 +73,21 @@ export default function MovieArchetypeResult() {
                 alt={ARCHETYPES.primary.alt}
                 className="aspect-[2/3] w-full rounded-xl object-cover"
               />
+              <span className="pointer-events-none absolute inset-2 rounded-xl bg-black/0 transition-colors group-hover:bg-black/15 group-focus-visible:bg-black/15" />
               <span className="absolute top-4 left-4 rounded-full bg-pastel-teal-light px-2.5 py-0.5 text-xs font-medium tracking-wide text-accent-foreground uppercase">
                 Primary
+              </span>
+              <span
+                aria-hidden="true"
+                className="absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full bg-card/95 px-2.5 py-1 text-xs font-medium text-pastel-slate shadow-sm"
+              >
+                <Maximize2Icon className="size-3.5" />
+                View
               </span>
             </button>
             <button
               type="button"
-              className="absolute right-3 bottom-2 w-[38%] cursor-pointer text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="group absolute right-3 bottom-2 w-[38%] cursor-pointer text-left outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-3 focus-visible:ring-ring/50"
               onClick={() => setHighlighted("secondary")}
               aria-label={`View ${ARCHETYPES.secondary.title}`}
             >
@@ -85,8 +96,15 @@ export default function MovieArchetypeResult() {
                 alt={ARCHETYPES.secondary.alt}
                 className="aspect-[2/3] w-full rounded-xl object-cover shadow-md ring-8 ring-card"
               />
+              <span className="pointer-events-none absolute inset-0 rounded-xl bg-black/0 transition-colors group-hover:bg-black/15 group-focus-visible:bg-black/15" />
               <span className="absolute top-3 left-3 rounded-full bg-pastel-teal-light px-2.5 py-0.5 text-xs font-medium tracking-wide text-accent-foreground uppercase">
                 Secondary
+              </span>
+              <span
+                aria-hidden="true"
+                className="absolute right-2.5 bottom-2.5 flex size-7 items-center justify-center rounded-full bg-card/95 text-pastel-slate shadow-sm"
+              >
+                <Maximize2Icon className="size-3.5" />
               </span>
             </button>
           </div>
