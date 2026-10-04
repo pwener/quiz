@@ -100,8 +100,10 @@ export default function MovieArchetypeResult() {
       <article className="mx-auto flex w-full max-w-lg flex-col gap-6 px-4 pt-8 pb-12">
         <header className="text-center">
           <h1 className="text-3xl leading-tight font-semibold text-pastel-slate">
-            This is your{" "}
-            <span className="text-pastel-teal">Movie-Watcher</span> Archetype
+            <span className="text-pastel-teal">{ARCHETYPES.primary.title}</span>
+            <small className="block text-lg font-normal text-pastel-slate-muted">
+              <span>{ARCHETYPES.secondary.title}</span>
+            </small>
           </h1>
         </header>
 
