@@ -1,17 +1,28 @@
 import { useState } from "react"
-import { Link } from "react-router"
+import { Loader2Icon } from "lucide-react"
+import { Form, useNavigation } from "react-router"
 
 import { MovieSearchCombobox } from "../components/movie-search-combobox"
 import { Button } from "@workspace/ui/components/button"
 import {
   MAX_MOVIES,
+  MIN_MOVIES,
   SelectedMoviesList,
 } from "../components/selected-movies-list"
 import type { MovieSuggestion } from "../lib/imdb"
 
 export default function Home() {
   const [selectedMovies, setSelectedMovies] = useState<MovieSuggestion[]>([])
+  const navigation = useNavigation()
   const isFull = selectedMovies.length >= MAX_MOVIES
+  const canDiscover =
+    selectedMovies.length >= MIN_MOVIES && selectedMovies.length <= MAX_MOVIES
+  const isSubmitting =
+    navigation.state !== "idle" &&
+    navigation.formAction?.endsWith("/movie/archetype-result") === true
+  const moviesField = JSON.stringify(
+    selectedMovies.map((movie) => ({ id: movie.id, title: movie.title }))
+  )
 
   function handleSelect(movie: MovieSuggestion) {
     if (selectedMovies.length >= MAX_MOVIES) {
@@ -26,9 +37,7 @@ export default function Home() {
   }
 
   function handleRemove(id: string) {
-    setSelectedMovies((current) =>
-      current.filter((movie) => movie.id !== id)
-    )
+    setSelectedMovies((current) => current.filter((movie) => movie.id !== id))
   }
 
   return (
@@ -43,7 +52,7 @@ export default function Home() {
             <span className="text-pastel-teal">Movie-Watcher</span> Archetypes
           </h1>
           <p className="max-w-sm text-sm text-pastel-slate-muted">
-            Search IMDB and build your list of 10 favorite films.
+            Search and pick 5 to 10 favorite films.
           </p>
         </header>
 
@@ -60,9 +69,33 @@ export default function Home() {
 
         <SelectedMoviesList movies={selectedMovies} onRemove={handleRemove} />
 
-        <Button asChild size="lg" className="w-full">
-          <Link to="/movie/archetype-result">Discover</Link>
-        </Button>
+        <Form
+          method="post"
+          action="/movie/archetype-result"
+          className="flex flex-col gap-3"
+        >
+          <input type="hidden" name="movies" value={moviesField} />
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full"
+            disabled={!canDiscover || isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2Icon className="animate-spin" />
+                Discovering
+              </>
+            ) : (
+              "Discover"
+            )}
+          </Button>
+          {!canDiscover ? (
+            <p className="text-center text-sm text-pastel-slate-muted">
+              Add at least {MIN_MOVIES} movies to discover your archetypes.
+            </p>
+          ) : null}
+        </Form>
       </div>
     </div>
   )

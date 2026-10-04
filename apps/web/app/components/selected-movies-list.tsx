@@ -3,6 +3,7 @@ import { XIcon } from "lucide-react"
 import type { MovieSuggestion } from "../lib/imdb"
 import { Button } from "@workspace/ui/components/button"
 
+const MIN_MOVIES = 5
 const MAX_MOVIES = 10
 
 type SelectedMoviesListProps = {
@@ -78,4 +79,4 @@ export function SelectedMoviesList({
   )
 }
 
-export { MAX_MOVIES }
+export { MAX_MOVIES, MIN_MOVIES }
