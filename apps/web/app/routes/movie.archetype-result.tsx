@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router"
 import { Maximize2Icon, XIcon } from "lucide-react"
 
@@ -15,7 +15,7 @@ const ARCHETYPES = {
   primary: {
     image: "/images/theworldbuilder.jpg",
     alt: "Primary movie-watcher archetype",
-    title: "The World-Builder (Escapist)",
+    title: "The World-Builder",
     coreMotivation:
       "Immersion into rich, expansive fictional universes and high stakes.",
     keyMetadataSignals:
@@ -24,7 +24,7 @@ const ARCHETYPES = {
   secondary: {
     image: "/images/theromantic.jpg",
     alt: "Secondary movie-watcher archetype",
-    title: "The Heart-Led Romantic / Humanist",
+    title: "The Heart-Led Romantic",
     coreMotivation:
       "Emotional resonance, character-driven relationships, and human connection.",
     keyMetadataSignals:
@@ -34,6 +34,29 @@ const ARCHETYPES = {
 
 type ArchetypeKey = keyof typeof ARCHETYPES
 
+const HINT_PLAY_MS = 2500
+const HINT_REPLAY_GAP_MS = 5000
+
+function ArchetypeClickHint() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center"
+    >
+      <img
+        src="/images/pointer.png"
+        alt=""
+        className="w-[60%] mix-blend-screen animate-archetype-pointer motion-reduce:animate-none motion-reduce:opacity-70"
+      />
+      <p className="mt-1 max-w-[95%] animate-archetype-pointer-caption text-center text-xs leading-tight font-medium motion-reduce:animate-none">
+        <span className="rounded-full bg-card/95 px-2.5 py-1 text-pastel-slate shadow-sm">
+          Tap a figure to learn more
+        </span>
+      </p>
+    </div>
+  )
+}
+
 const RESULT = {
   description:
     "This persona possesses a captivating dual nature: they are driven by deep emotional vulnerability and passionate romance, but they insist that it be paired with high-stakes dramatic intrigue, nostalgic beauty, or time/reality-bending concepts. They don't just want a standard love story; they want love tested by extraordinary circumstances—time travel, tragic fate, societal barriers, or surreal worlds.",
@@ -41,11 +64,36 @@ const RESULT = {
 
 export default function MovieArchetypeResult() {
   const [highlighted, setHighlighted] = useState<ArchetypeKey | null>(null)
+  const [hintDismissed, setHintDismissed] = useState(false)
+  const [hintVisible, setHintVisible] = useState(true)
+  const [hintCycle, setHintCycle] = useState(0)
   const lastHighlightedRef = useRef<ArchetypeKey>("primary")
   if (highlighted) {
     lastHighlightedRef.current = highlighted
   }
   const highlightedArchetype = ARCHETYPES[highlighted ?? lastHighlightedRef.current]
+  const showHint = !hintDismissed && hintVisible
+
+  function openArchetype(key: ArchetypeKey) {
+    setHintDismissed(true)
+    setHintVisible(false)
+    setHighlighted(key)
+  }
+
+  useEffect(() => {
+    if (hintDismissed) return
+    const hideId = window.setTimeout(() => {
+      setHintVisible(false)
+    }, HINT_PLAY_MS)
+    const replayId = window.setTimeout(() => {
+      setHintVisible(true)
+      setHintCycle((cycle) => cycle + 1)
+    }, HINT_PLAY_MS + HINT_REPLAY_GAP_MS)
+    return () => {
+      window.clearTimeout(hideId)
+      window.clearTimeout(replayId)
+    }
+  }, [hintDismissed, hintCycle])
 
   return (
     <div className="bg-pastel-mesh min-h-svh">
@@ -55,9 +103,6 @@ export default function MovieArchetypeResult() {
             This is your{" "}
             <span className="text-pastel-teal">Movie-Watcher</span> Archetype
           </h1>
-          <p className="mt-2 text-sm text-pastel-slate-muted">
-            Tap a figure to learn more
-          </p>
         </header>
 
         <div className="flex flex-col gap-6">
@@ -65,7 +110,7 @@ export default function MovieArchetypeResult() {
             <button
               type="button"
               className="group relative w-full cursor-pointer rounded-2xl bg-card p-2 text-left shadow-md outline-none transition-shadow hover:shadow-lg focus-visible:ring-3 focus-visible:ring-ring/50"
-              onClick={() => setHighlighted("primary")}
+              onClick={() => openArchetype("primary")}
               aria-label={`View ${ARCHETYPES.primary.title}`}
             >
               <img
@@ -84,11 +129,12 @@ export default function MovieArchetypeResult() {
                 <Maximize2Icon className="size-3.5" />
                 View
               </span>
+              {showHint ? <ArchetypeClickHint key={hintCycle} /> : null}
             </button>
             <button
               type="button"
               className="group absolute right-3 bottom-2 w-[38%] cursor-pointer text-left outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-3 focus-visible:ring-ring/50"
-              onClick={() => setHighlighted("secondary")}
+              onClick={() => openArchetype("secondary")}
               aria-label={`View ${ARCHETYPES.secondary.title}`}
             >
               <img
@@ -106,6 +152,7 @@ export default function MovieArchetypeResult() {
               >
                 <Maximize2Icon className="size-3.5" />
               </span>
+              {showHint ? <ArchetypeClickHint key={hintCycle} /> : null}
             </button>
           </div>
           <section className="rounded-2xl border border-pastel-lavender/60 bg-card p-5 shadow-sm">
