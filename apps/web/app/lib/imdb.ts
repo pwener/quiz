@@ -21,6 +21,16 @@ type ImdbSuggestionResponse = {
   d?: ImdbSuggestionItem[]
 }
 
+function imdbSuggestionBaseUrl() {
+  const baseUrl = process.env.IMDB_SUGGESTION_BASE_URL?.trim().replace(/\/$/, "")
+  if (!baseUrl) {
+    throw new Error(
+      "IMDB_SUGGESTION_BASE_URL is not set. Add it to apps/web/.env."
+    )
+  }
+  return baseUrl
+}
+
 export async function searchMovies(query: string): Promise<MovieSuggestion[]> {
   const trimmed = query.trim()
   if (trimmed.length < 2) {
@@ -29,7 +39,7 @@ export async function searchMovies(query: string): Promise<MovieSuggestion[]> {
 
   const firstLetter = trimmed[0]?.toLowerCase() ?? "a"
   const searchTerm = trimmed.replace(/\s+/g, "").toLowerCase()
-  const url = `https://v3.sg.media-imdb.com/suggestion/${firstLetter}/${encodeURIComponent(searchTerm)}.json`
+  const url = `${imdbSuggestionBaseUrl()}/suggestion/${firstLetter}/${encodeURIComponent(searchTerm)}.json`
 
   const response = await fetch(url)
   if (!response.ok) {

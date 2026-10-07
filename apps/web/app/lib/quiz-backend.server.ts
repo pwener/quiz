@@ -4,7 +4,6 @@ import {
   type ScoredMovie,
 } from "./quiz-backend"
 
-const DEFAULT_BACKEND_URL = "http://127.0.0.1:8000"
 const DEFAULT_LANGUAGE = "pt"
 
 export class QuizBackendError extends Error {
@@ -17,10 +16,7 @@ export class QuizBackendError extends Error {
 export async function scoreMovieArchetype(
   movies: ScoredMovie[]
 ): Promise<MovieArchetypeResponse> {
-  const baseUrl = (process.env.QUIZ_BACKEND_URL ?? DEFAULT_BACKEND_URL).replace(
-    /\/$/,
-    ""
-  )
+  const baseUrl = quizBackendUrl()
 
   let response: Response
   try {
@@ -55,6 +51,16 @@ export async function scoreMovieArchetype(
   }
 
   return body
+}
+
+function quizBackendUrl() {
+  const baseUrl = process.env.QUIZ_BACKEND_URL?.trim().replace(/\/$/, "")
+  if (!baseUrl) {
+    throw new QuizBackendError(
+      "QUIZ_BACKEND_URL is not set. Add it to apps/web/.env."
+    )
+  }
+  return baseUrl
 }
 
 function quizLanguage() {
