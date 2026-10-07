@@ -5,6 +5,7 @@ import {
 } from "./quiz-backend"
 
 const DEFAULT_BACKEND_URL = "http://127.0.0.1:8000"
+const DEFAULT_LANGUAGE = "pt"
 
 export class QuizBackendError extends Error {
   constructor(message: string) {
@@ -29,7 +30,7 @@ export async function scoreMovieArchetype(
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ language: "pt", movies }),
+      body: JSON.stringify({ language: quizLanguage(), movies }),
       signal: AbortSignal.timeout(60_000),
     })
   } catch {
@@ -54,6 +55,11 @@ export async function scoreMovieArchetype(
   }
 
   return body
+}
+
+function quizLanguage() {
+  const language = process.env.QUIZ_LANGUAGE?.trim() || DEFAULT_LANGUAGE
+  return language
 }
 
 export function moviesFromFormValue(value: FormDataEntryValue | null) {

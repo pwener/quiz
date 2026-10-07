@@ -102,6 +102,9 @@ function ArchetypePortrait({
   archetype: DisplayArchetype
   className: string
 }) {
+  if (!archetype.image) {
+    return <></>
+  }
   return <img src={archetype.image} alt={archetype.alt} className={className} />
 }
 
